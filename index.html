@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Play&family=Rampart+One&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        background: #bdc3c7; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          to right,
+          #bdc3c7,
+          #2c3e50
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          to right,
+          #bdc3c7,
+          #2c3e50
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      }
+      section {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+      div {
+        width: 200px;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        place-content: center;
+        margin: 10px;
+        border-radius: 20px;
+        box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
+      }
+      span {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.5em;
+        text-transform: uppercase;
+        font-family: "Rampart One", cursive;
+      }
+      button {
+        font-family: "Play", sans-serif;
+        display: block;
+        height: 20px;
+        background-color: black;
+        color: white;
+        font-weight: bold;
+        border: none;
+        line-height: 0;
+        padding: 1em 2em;
+        width: 400px;
+        border-radius: 10px;
+        font-size: 1.5em;
+        text-transform: uppercase;
+        margin: 2% auto;
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <section id="colorsContainer"></section>
+    <button id="changeColor">Generate colors</button>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      let colorsContainer = $("#colorsContainer");
+
+      $("#changeColor").on("click", function () {
+        let number = prompt("How Many Colors You Want To Be Generated?");
+        $(colorsContainer).html("");
+        generate(Number(number));
+      });
+
+      //   $(colorsContainer).append(
+      //     `<div class="displayColor" id="dc-1"><span class="colorHex" id="span-1"></span></div>`
+      //   );
+      //   $(`div#dc-1`).attr("style", `background-color:#fff`);
+      //   $(`span#span-1`).text("fff");
+
+      async function generate(num) {
+        for (let i = 0; i < num; i++) {
+          let color = "";
+          $(colorsContainer).append(
+            `<div class="displayColor" id="dc-${i}"><span class="colorHex" id="span-${i}"></span></div>`
+          );
+          color = await getColor();
+          $(`div#dc-${i}`).attr("style", `background-color:${color}`);
+          $(`span#span-${i}`).text(color);
+        }
+      }
+
+      function getColor() {
+        let generated = getRandomString(6);
+        return generated;
+      }
+      function getRandomString(length) {
+        var randomChars = "ABCDEF0123456789";
+        var result = "";
+        for (var i = 0; i < length; i++) {
+          result += randomChars.charAt(
+            Math.floor(Math.random() * randomChars.length)
+          );
+        }
+        return "#" + result;
+      }
+    </script>
+  </body>
+</html>
