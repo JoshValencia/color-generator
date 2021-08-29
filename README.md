@@ -1,3 +1,3 @@
-# color-generator
+# Color Palette Generator
 A simple random color generator
-https://color-generator-pallete.netlify.app/
+https://color-generator-palette.netlify.app/
